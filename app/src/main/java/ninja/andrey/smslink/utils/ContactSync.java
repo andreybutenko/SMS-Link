@@ -54,6 +54,17 @@ public class ContactSync {
         });
     }
 
+    public void syncContactRecipientIds()  {
+        // Associate `recipient_ids` from conversations with contacts
+        Cursor cursor = contentResolver.query(Uri.parse("content://mms-sms/canonical-addresses"), null, null, null, null);
+        CursorHelper.iterate(cursor, new CursorHelper.IterateListener() {
+            @Override
+            public void onItemParsed(JSONObject conversationData) {
+                syncService.sendContactRecipientIds(conversationData);
+            }
+        });
+    }
+
     private String getPhoneNumber(JSONObject contactData) {
         try {
             return contactData.getString(ContactsContract.CommonDataKinds.Phone.NUMBER);

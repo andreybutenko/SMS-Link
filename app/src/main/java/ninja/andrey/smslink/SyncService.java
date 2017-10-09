@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ninja.andrey.smslink.utils.ContactSync;
+import ninja.andrey.smslink.utils.ConversationSync;
 import ninja.andrey.smslink.utils.CursorHelper;
 import ninja.andrey.smslink.utils.MmsSync;
 import ninja.andrey.smslink.utils.SmsSync;
@@ -76,6 +77,11 @@ public class SyncService extends Service {
         socket.emit("MESSAGE", data);
     }
 
+    public void sendConversation(JSONObject data) {
+        Log.d(TAG, "Sending a conversation");
+        socket.emit("CONVERSATION", data);
+    }
+
     public void sendSms(JSONObject sms) {
         Log.d(TAG, "Sending a sms");
         socket.emit("SMS", sms);
@@ -91,6 +97,16 @@ public class SyncService extends Service {
         socket.emit("CONTACT", contact);
     }
 
+    public void sendContactRecipientIds(JSONObject data) {
+        Log.d(TAG, "Sending a recipient id");
+        socket.emit("RECIPIENT_ID", data);
+    }
+
+    public void syncConversations() {
+        ConversationSync conversationSync = new ConversationSync(this);
+        conversationSync.syncConversations();
+    }
+
     public void syncAllTexts() {
         MmsSync mmsSync = new MmsSync(this);
         mmsSync.syncMmsTexts();
@@ -102,6 +118,7 @@ public class SyncService extends Service {
     public void syncAllContacts() {
         ContactSync contactSync = new ContactSync(this);
         contactSync.syncContacts();
+        contactSync.syncContactRecipientIds();
     }
 
     public void addListener(SyncStatus listener) {

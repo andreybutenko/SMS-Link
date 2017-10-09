@@ -13,7 +13,7 @@ import ninja.andrey.smslink.SyncService;
  */
 
 public class SmsSync {
-    private static final String TAG = "SMS_HELER";
+    private static final String TAG = "SMS_SYNC";
     private SyncService syncService;
     private ContentResolver contentResolver;
 

@@ -24,7 +24,7 @@ import ninja.andrey.smslink.SyncService;
  */
 
 public class MmsSync {
-    private static final String TAG = "MMS_HELER";
+    private static final String TAG = "MMS_SYNC";
     private SyncService syncService;
     private ContentResolver contentResolver;
 

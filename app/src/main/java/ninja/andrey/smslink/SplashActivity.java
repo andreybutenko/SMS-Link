@@ -87,9 +87,9 @@ public class SplashActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public void onClick(View v) {
                 SyncService syncService = SyncService.getInstance();
-                syncService.authenticate();
                 // syncService.sendMessage();
-                syncService.syncAllTexts();
+                syncService.syncConversations();
+                // syncService.syncAllTexts();
                 syncService.syncAllContacts();
             }
         });
@@ -133,6 +133,7 @@ public class SplashActivity extends AppCompatActivity implements GoogleApiClient
     private void afterAuthentication(FirebaseUser user, String idToken) {
         Preferences.setAuthToken(this, idToken);
         MessageIdService.sendRegistrationToServer(user, Preferences.getMessageToken(this));
+        SyncService.getInstance().authenticate();
     }
 
     private void displayDialog(String title, String description) {
