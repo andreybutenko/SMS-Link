@@ -23,8 +23,8 @@ public class SmsSync {
     }
 
     public void syncSmsTexts() {
-        Cursor mmsCursor = contentResolver.query(Uri.parse("content://mms"), new String[]{"*"}, null, null, null);
-        CursorHelper.iterate(mmsCursor, new CursorHelper.IterateListener() {
+        Cursor smsCursor = contentResolver.query(Uri.parse("content://sms"), new String[]{"*"}, null, null, null);
+        CursorHelper.iterate(smsCursor, new CursorHelper.IterateListener() {
             @Override
             public void onItemParsed(JSONObject textData) {
                 syncService.sendSms(textData);

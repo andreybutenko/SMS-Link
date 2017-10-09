@@ -89,7 +89,7 @@ public class SplashActivity extends AppCompatActivity implements GoogleApiClient
                 SyncService syncService = SyncService.getInstance();
                 syncService.authenticate();
                 // syncService.sendMessage();
-                //syncService.syncAllTexts();
+                syncService.syncAllTexts();
                 syncService.syncAllContacts();
             }
         });
